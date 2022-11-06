@@ -1,11 +1,10 @@
 package com.okre.beachinfo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.okre.beachinfo.databinding.ActivityMainBinding
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +44,9 @@ class MainActivity : AppCompatActivity() {
 
                         for (item in 0 until array.size) {
                             val name = array[item].poiNm
-                            val congestion = array[item].congestion.toInt()
+                            //val congestion = array[item].congestion.toInt()
+                            // 겨울해수욕장 혼잡도 보통만 출력되므로 임의 숫자 배정
+                            val congestion = (1..3).random()
                             viewPagerAdapter.appendFragment(FragmentForViewPager.newInstance(name, congestion))
                         }
                         viewPager.adapter = viewPagerAdapter
