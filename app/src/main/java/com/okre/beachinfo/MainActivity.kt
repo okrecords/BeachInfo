@@ -31,24 +31,24 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<Beach> {
             override fun onResponse(call: Call<Beach>, response: Response<Beach>) {
                 if (response.isSuccessful) {
-                    val adapter = ViewPagerAdapter(this@MainActivity)
+                    val viewPagerAdapter = ViewPagerAdapter(this@MainActivity)
                     try {
-                        val jsonData = response.body()
-                        Log.d("beachLog", jsonData.toString())
+                        val responseData = response.body()!!
+                        Log.d("beachLog", responseData.toString())
 
                         val array = ArrayList<BeachData>()
-                        array.add(response.body()!!.Beach0)
-                        array.add(response.body()!!.Beach1)
-                        array.add(response.body()!!.Beach2)
-                        array.add(response.body()!!.Beach3)
-                        array.add(response.body()!!.Beach4)
+                        array.add(responseData.Beach0)
+                        array.add(responseData.Beach1)
+                        array.add(responseData.Beach2)
+                        array.add(responseData.Beach3)
+                        array.add(responseData.Beach4)
 
                         for (item in 0 until array.size) {
                             val name = array[item].poiNm
                             val congestion = array[item].congestion.toInt()
-                            adapter.appendFragment(FragmentForViewPager.newInstance(name, congestion))
+                            viewPagerAdapter.appendFragment(FragmentForViewPager.newInstance(name, congestion))
                         }
-                        binding.viewPager.adapter = adapter
+                        viewPager.adapter = viewPagerAdapter
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
